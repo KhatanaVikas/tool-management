@@ -11,6 +11,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','HomeController@homeAction');
+Route::get('/about','HomeController@aboutAction');
+
+
+/**
+ * TODO:: Later move these routes to api.php
+ */
+/**
+ * Routes for tool manager
+ */
+Route::get('/tools/get-tool-groups','API\ToolManagerController@getToolGroupAction');
+Route::post('/tools/add','API\ToolManagerController@addNewToolAction');
+Route::post('/tools/edit','API\ToolManagerController@updateToolAction');
+Route::delete('/tools/delete/{tool_id}','API\ToolManagerController@deleteToolAction');
+Route::get('/tools/view','API\ToolManagerController@getToolListAction');
