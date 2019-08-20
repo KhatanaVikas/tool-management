@@ -109,7 +109,7 @@ class ToolManagerController extends Controller
         $userId = $user->id;
         try {
             $tool->name = request('tool_name');
-            $tool->tool_group_id = request('tool_group_id');
+            $tool->tool_group_id = request('tool_group');
             $tool->user_id = $userId;
             $tool->cost_price = request('cost_price');
             $tool->save();

@@ -1,6 +1,13 @@
 function ToolManager() {
 
     this.tools = [];
+    this.editformSelectors = {
+        'id': '#tool_id_edit_form',
+        'name': '#tool_name_edit_form',
+        'user': '#user_name_edit_form',
+        'group': '#tool_group_edit_form',
+        'cost_price': '#tool_price_edit_form',
+    };
 
 }
 
@@ -26,9 +33,59 @@ ToolManager.prototype.delete = function (tool_id) {
 
 /**
  * Description: Add new tool
+ *
+ * @param form
+ * @param url
  */
-ToolManager.prototype.addTool = function (e) {
+ToolManager.prototype.addTool = function (form, url) {
 
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: form.serialize(), // serializes the form's elements.
+        success: function (data) {
+            console.log(data); // show response from the php script.
+            window.location.reload();
+        }
+    });
+
+}
+
+/**
+ *
+ * @param form
+ * @param url
+ */
+ToolManager.prototype.editTool = function (form, url) {
+
+    var id = $(this.editformSelectors.id).val();
+    url = url + '/' + id;
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: form.serialize(), // serializes the form's elements.
+        success: function (data) {
+            console.log(data); // show response from the php script.
+            window.location.reload();
+        }
+    });
+
+}
+
+ToolManager.prototype.showEditForm = function (element) {
+
+    var id = element.getAttribute('tool_id');
+    var toolName = element.getAttribute('tool_name');
+    var groupName = element.getAttribute('tool_group');
+    var tool_cost = element.getAttribute('tool_cost');
+    var userName = element.getAttribute('tool_username');
+    $('#editToolModal').modal({show: true});
+
+    $(''+this.editformSelectors.id+'').val(id);
+    $(''+this.editformSelectors.name+'').val(toolName);
+    $(''+this.editformSelectors.cost_price+'').val(tool_cost);
+    $(''+this.editformSelectors.user+'').val(userName);
+    $("#tool_group_edit_form option:contains('"+ groupName +"')").attr('selected', 'selected');
 
 }
 
@@ -48,8 +105,10 @@ ToolManager.prototype.bindDataToGrid = function () {
             '                    <td>' + tool.cost_price + '</td>\n' +
             '                    <td>' + tool.purchase_date + '</td>\n' +
             '                    <td>\n' +
-            '                        <a href="#editToolModal" tool-id="' + tool.id + '" class="edit" data-toggle="modal"><i\n' +
-            '                                class="material-icons"\n' +
+            '                        <i tool_id="' + tool.id + '" tool_name="' + tool.name + '" tool_group="' + tool.tool_group_name + '" ' +
+            '                                   tool_cost="' + tool.cost_price + '" tool_username="' + tool.user_name + '"  ' +
+            '                                   onclick="toolMgr.showEditForm(this)"\n' +
+            '                                class="edit material-icons"\n' +
             '                                data-toggle="tooltip" title="Edit">&#xE254;</i></a>\n' +
             '                        <i onclick="toolMgr.delete(' + tool.id + ')" class=" delete material-icons"\n' +
             '                           data-toggle="tooltip"\n' +
@@ -93,17 +152,15 @@ $(document).ready(function () {
         e.preventDefault(); // avoid to execute the actual submit of the form.
         var form = $(this);
         var url = form.attr('action');
+        toolMgr.addTool(form, url);
 
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: form.serialize(), // serializes the form's elements.
-            success: function (data) {
-                console.log(data); // show response from the php script.
-                window.location.reload();
-            }
-        });
+    });
 
+    $("#tool-edit-form").submit(function (e) {
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+        var form = $(this);
+        var url = form.attr('action');
+        toolMgr.editTool(form, url);
     });
 
 });

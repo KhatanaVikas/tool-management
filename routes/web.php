@@ -23,6 +23,6 @@ Route::get('/about','HomeController@aboutAction');
  */
 Route::get('/tools/get-tool-groups','API\ToolManagerController@getToolGroupAction');
 Route::post('/tools/add','API\ToolManagerController@addNewToolAction');
-Route::post('/tools/edit','API\ToolManagerController@updateToolAction');
+Route::post('/tools/edit/{tool_id}','API\ToolManagerController@updateToolAction');
 Route::delete('/tools/delete/{tool_id}','API\ToolManagerController@deleteToolAction');
 Route::get('/tools/view','API\ToolManagerController@getToolListAction');

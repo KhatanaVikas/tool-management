@@ -80,7 +80,8 @@
     <div id="editToolModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form method="POST" action="/tools/edit">
+                <form id="tool-edit-form" method="POST" action="/tools/edit">
+                    <input type="hidden" id="tool_id_edit_form" value="">
                     <div class="modal-header">
                         <h4 class="modal-title">Edit Tool</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -88,25 +89,31 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label>Tool Name</label>
-                            <input type="text" name="tool_name" class="form-control" na required>
+                            <input id="tool_name_edit_form" type="text" name="tool_name" class="form-control" na
+                                   required>
                         </div>
                         <div class="form-group">
                             <label>User</label>
-                            <input type="text" name="user_name" class="form-control" required>
+                            <input id="user_name_edit_form" type="text" name="user_name" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label>Cost Price</label>
-                            <input type="number" name="cost_price" class="form-control" required>
+                            <input id="tool_price_edit_form" type="number" name="cost_price" class="form-control"
+                                   required>
                         </div>
                         <div class="form-group">
                             <label>Tool Group</label>
-                            <select name="tool_group" class="form-control" required>
+                            <select id="tool_group_edit_form" name="tool_group" class="form-control" required>
                                 <option class="form-control" selected>Choose...</option>
                                 @foreach($toolGroups as $group)
                                     <option class="form-control" value="{{$group['id']}}">{{$group['name']}}</option>
                                 @endforeach
                             </select>
                         </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                        <input type="submit" class="btn btn-success" value="Update">
                     </div>
                 </form>
             </div>
