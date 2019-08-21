@@ -59,11 +59,9 @@
                         </div>
                         <div class="form-group">
                             <label>Tool Group</label>
-                            <select name="tool_group" class="form-control" required>
+                            <select id="tool_group_add_form" name="tool_group" class="form-control" required>
                                 <option class="form-control" selected>Choose...</option>
-                                @foreach($toolGroups as $group)
-                                    <option class="form-control" value="{{$group['id']}}">{{$group['name']}}</option>
-                                @endforeach
+
                             </select>
                         </div>
                     </div>
@@ -105,9 +103,7 @@
                             <label>Tool Group</label>
                             <select id="tool_group_edit_form" name="tool_group" class="form-control" required>
                                 <option class="form-control" selected>Choose...</option>
-                                @foreach($toolGroups as $group)
-                                    <option class="form-control" value="{{$group['id']}}">{{$group['name']}}</option>
-                                @endforeach
+
                             </select>
                         </div>
                     </div>

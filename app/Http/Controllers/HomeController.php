@@ -15,8 +15,7 @@ class HomeController extends Controller
     public function homeAction()
     {
         $toolGroups = ToolGroup::all()->toArray();
-        $tools = Tool::all();
 
-        return view('index', array('toolGroups' => $toolGroups, 'tools' => $tools));
+        return view('index', array('toolGroups' => $toolGroups));
     }
 }

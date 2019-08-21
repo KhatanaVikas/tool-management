@@ -1,6 +1,7 @@
 function ToolManager() {
 
     this.tools = [];
+    this.tool_groups = [];
     this.editformSelectors = {
         'id': '#tool_id_edit_form',
         'name': '#tool_name_edit_form',
@@ -134,6 +135,39 @@ ToolManager.prototype.loadData = function () {
     })
 }
 
+/**
+ *Bind tool groups in forms
+ */
+ToolManager.prototype.bindToolGroupsInform = function () {
+    var listHtml = '<option class="form-control" selected>Choose...</option>';
+
+    this.tool_groups.forEach(prepareHtml);
+
+    function prepareHtml(tool_group, index) {
+        listHtml += '<option class="form-control" value="'+tool_group.id+'">'+tool_group.name+'</option>';
+
+    }
+
+    $('#tool_group_edit_form').html(listHtml);
+    $('#tool_group_add_form').html(listHtml);
+}
+
+/**
+ * Load initial tool groups list data
+ */
+ToolManager.prototype.getToolGroups = function () {
+    let tmgr = this;
+
+    $.get('http://local.toolmanager.com/tools/get-tool-groups', function (response) {
+        tmgr.tool_groups = response;
+
+        tmgr.bindToolGroupsInform();
+    })
+}
+
+
+
+
 let toolMgr = new ToolManager();
 
 /**
@@ -147,6 +181,7 @@ $(document).ready(function () {
         }
     });
     toolMgr.loadData();
+    toolMgr.getToolGroups();
 
     $("#tool-add-form").submit(function (e) {
         e.preventDefault(); // avoid to execute the actual submit of the form.
