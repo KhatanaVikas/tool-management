@@ -26,3 +26,7 @@ Route::post('/tools/add','API\ToolManagerController@addNewToolAction');
 Route::post('/tools/edit/{tool_id}','API\ToolManagerController@updateToolAction');
 Route::delete('/tools/delete/{tool_id}','API\ToolManagerController@deleteToolAction');
 Route::get('/tools/view','API\ToolManagerController@getToolListAction');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

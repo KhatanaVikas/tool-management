@@ -2,20 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Tool;
-use App\ToolGroup;
-use App\Users;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * Create a new controller instance.
+     *
+     * @return void
      */
-    public function homeAction()
+    public function __construct()
     {
-        $toolGroups = ToolGroup::all()->toArray();
+        $this->middleware('auth');
+    }
 
-        return view('index', array('toolGroups' => $toolGroups));
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index()
+    {
+        return view('index');
     }
 }
