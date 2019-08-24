@@ -13,7 +13,7 @@ class CreateToolGroupsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tool_groups', function (Blueprint $table) {
+        Schema::connection('mysql')->create('tool_groups', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->timestamps();
