@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\Tools;
 
 use App\Tool;
 use App\ToolGroup;
@@ -14,10 +14,10 @@ use function request as request;
  * 3.   deleteToolAction()    -- To delete a tool from list
  * 4.   updateToolAction()    -- To update data of a tool
  * 5.   addNewToolAction()    -- TO add a new tool to list
- * Class ToolManagerController
+ * Class ToolController
  * @package App\Http\Controllers\API
  */
-class ToolManagerController extends Controller
+class ToolController extends Controller
 {
     /**
      * Description: Get Tool Groups api

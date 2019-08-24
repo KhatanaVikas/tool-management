@@ -19,11 +19,11 @@ Route::get('/','HomeController@index');
 /**
  * Routes for tool manager
  */
-Route::get('/tools/get-tool-groups','API\ToolManagerController@getToolGroupAction');
-Route::post('/tools/add','API\ToolManagerController@addNewToolAction');
-Route::post('/tools/edit/{tool_id}','API\ToolManagerController@updateToolAction');
-Route::delete('/tools/delete/{tool_id}','API\ToolManagerController@deleteToolAction');
-Route::get('/tools/view','API\ToolManagerController@getToolListAction');
+Route::get('/tools/get-tool-groups','Tools\ToolController@getToolGroupAction');
+Route::post('/tools/add','Tools\ToolController@addNewToolAction');
+Route::post('/tools/edit/{tool_id}','Tools\ToolController@updateToolAction');
+Route::delete('/tools/delete/{tool_id}','Tools\ToolController@deleteToolAction');
+Route::get('/tools/view','Tools\ToolController@getToolListAction');
 
 Auth::routes();
 
