@@ -5,7 +5,7 @@ function ToolManager() {
     this.editformSelectors = {
         'id': '#tool_id_edit_form',
         'name': '#tool_name_edit_form',
-        'user': '#user_name_edit_form',
+        // 'user': '#user_name_edit_form',
         'group': '#tool_group_edit_form',
         'cost_price': '#tool_price_edit_form',
     };
@@ -79,13 +79,13 @@ ToolManager.prototype.showEditForm = function (element) {
     var toolName = element.getAttribute('tool_name');
     var groupName = element.getAttribute('tool_group');
     var tool_cost = element.getAttribute('tool_cost');
-    var userName = element.getAttribute('tool_username');
+    // var userName = element.getAttribute('tool_username');
     $('#editToolModal').modal({show: true});
 
     $(''+this.editformSelectors.id+'').val(id);
     $(''+this.editformSelectors.name+'').val(toolName);
     $(''+this.editformSelectors.cost_price+'').val(tool_cost);
-    $(''+this.editformSelectors.user+'').val(userName);
+    // $(''+this.editformSelectors.user+'').val(userName);
     $("#tool_group_edit_form option:contains('"+ groupName +"')").attr('selected', 'selected');
 
 }

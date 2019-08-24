@@ -5,9 +5,6 @@ namespace App\Http\Controllers\API;
 use App\Tool;
 use App\ToolGroup;
 use App\Http\Controllers\Controller;
-use App\Users;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Routing\Redirector;
 use function request as request;
 
 /**
@@ -51,7 +48,7 @@ class ToolManagerController extends Controller
             $newToolsArray[$key]['purchase_date'] = $tool->purchase_date;
             $newToolsArray[$key]['cost_price'] = $tool->cost_price;
             $newToolsArray[$key]['tool_group_name'] = $tool->group->name;
-            $newToolsArray[$key]['user_name'] = $tool->user->name;
+            $newToolsArray[$key]['user_name'] = $tool->user->getAttributes()['name'];
         }
         $data = array(
             'tools' => $newToolsArray,
@@ -93,20 +90,8 @@ class ToolManagerController extends Controller
 
         $tool = Tool::find($tool_id);
         //see if username is changed
-        if (Users::where('name', request('user_name'))->first()) {
-            $user = Users::where('name', request('user_name'))->first();
-        } else {
-            $user = new Users();
-            try {
-                $user->name = request('user_name');
-                $user->save();
-            } catch (\Exception $ex) {
-                //handle errors here
-                return 'Could not insert new user. ERROR: ' . $ex->getMessage();
-            }
-        }
+        $userId = auth()->user()->getAuthIdentifier();
 
-        $userId = $user->id;
         try {
             $tool->name = request('tool_name');
             $tool->tool_group_id = request('tool_group');
@@ -130,23 +115,12 @@ class ToolManagerController extends Controller
     {
         $tool = new Tool();
 
-        $userName = request('user_name');
+//        $userName = request('user_name');
         $toolName = request('tool_name');
         $toolGroupId = request('tool_group');
         $costPrice = request('cost_price');
-        if (Users::where('name', $userName)->first()) {
-            $user = Users::where('name', $userName)->first();
-        } else {
-            $user = new Users();
-            try {
-                $user->name = $userName;
-                $user->save();
-            } catch (\Exception $ex) {
-                //handle errors here
-                return 'Could not add user . ERROR: ' . $ex->getMessage();
-            }
-        }
-        $userId = $user->id;
+
+        $userId = auth()->user()->getAuthIdentifier();
         try {
             $tool->name = $toolName;
             $tool->tool_group_id = $toolGroupId;

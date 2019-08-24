@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/','HomeController@homeAction');
-Route::get('/about','HomeController@aboutAction');
-
+Route::get('/','HomeController@index');
 
 /**
  * TODO:: Later move these routes to api.php
