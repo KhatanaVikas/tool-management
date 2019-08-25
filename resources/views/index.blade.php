@@ -49,10 +49,10 @@
                             <label>Tool Name</label>
                             <input type="text" name="tool_name" class="form-control" na required>
                         </div>
-                        <div class="form-group">
-                            <label>User</label>
-                            <input type="text" name="user_name" class="form-control" required>
-                        </div>
+{{--                        <div class="form-group">--}}
+{{--                            <label>User</label>--}}
+{{--                            <input type="text" name="user_name" class="form-control" required>--}}
+{{--                        </div>--}}
                         <div class="form-group">
                             <label>Cost Price</label>
                             <input type="number" name="cost_price" class="form-control" required>
@@ -90,10 +90,10 @@
                             <input id="tool_name_edit_form" type="text" name="tool_name" class="form-control" na
                                    required>
                         </div>
-                        <div class="form-group">
-                            <label>User</label>
-                            <input id="user_name_edit_form" type="text" name="user_name" class="form-control" required>
-                        </div>
+{{--                        <div class="form-group">--}}
+{{--                            <label>User</label>--}}
+{{--                            <input id="user_name_edit_form" type="text" name="user_name" class="form-control" required>--}}
+{{--                        </div>--}}
                         <div class="form-group">
                             <label>Cost Price</label>
                             <input id="tool_price_edit_form" type="number" name="cost_price" class="form-control"

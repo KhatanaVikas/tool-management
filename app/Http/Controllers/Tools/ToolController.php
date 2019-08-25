@@ -38,21 +38,10 @@ class ToolController extends Controller
      */
     public function getToolListAction()
     {
-        $toolGroups = ToolGroup::all()->toArray();
-        $tools = Tool::all();
 
-        $newToolsArray = array();
-        foreach ($tools as $key => $tool) {
-            $newToolsArray[$key]['id'] = $tool->id;
-            $newToolsArray[$key]['name'] = $tool->name;
-            $newToolsArray[$key]['purchase_date'] = $tool->purchase_date;
-            $newToolsArray[$key]['cost_price'] = $tool->cost_price;
-            $newToolsArray[$key]['tool_group_name'] = $tool->group->name;
-            $newToolsArray[$key]['user_name'] = $tool->user->getAttributes()['name'];
-        }
+        $tools = Tool::with('user','group')->get()->toArray();
         $data = array(
-            'tools' => $newToolsArray,
-            'toolGroups' => $toolGroups
+            'tools' => $tools
         );
 
         return $data;
@@ -66,10 +55,10 @@ class ToolController extends Controller
      */
     public function deleteToolAction($tool_id)
     {
-        if (!Tool::find($tool_id)) {
+        $tool = Tool::find($tool_id);
+        if (empty($tool)) {
             return 'Could not find the tool with this id';
         }
-        $tool = Tool::find($tool_id);
         $tool->delete();
 
         return 'Tool deleted successfully';
@@ -84,11 +73,10 @@ class ToolController extends Controller
      */
     public function updateToolAction($tool_id)
     {
-        if (!Tool::find($tool_id)) {
+        $tool = Tool::find($tool_id);
+        if (empty($tool)) {
             return 'Could not find the tool with this id';
         }
-
-        $tool = Tool::find($tool_id);
         //see if username is changed
         $userId = auth()->user()->getAuthIdentifier();
 

@@ -24,7 +24,10 @@ ToolManager.prototype.delete = function (tool_id) {
                 url: url,
                 type: 'DELETE',
                 success: function (result) {
-                    window.location.reload();
+                    bootbox.alert(result, function(){
+                        //window.location.reload();
+                    });
+                    toolMgr.loadData();
                 }
             });
         }
@@ -45,8 +48,11 @@ ToolManager.prototype.addTool = function (form, url) {
         url: url,
         data: form.serialize(), // serializes the form's elements.
         success: function (data) {
-            console.log(data); // show response from the php script.
-            window.location.reload();
+            $("[data-dismiss=modal]").click();
+            bootbox.alert(data, function(){
+                //window.location.reload();
+            });
+            toolMgr.loadData();
         }
     });
 
@@ -66,8 +72,11 @@ ToolManager.prototype.editTool = function (form, url) {
         url: url,
         data: form.serialize(), // serializes the form's elements.
         success: function (data) {
-            console.log(data); // show response from the php script.
-            window.location.reload();
+            $("[data-dismiss=modal]").click();
+            bootbox.alert(data, function(){
+                //window.location.reload();
+            });
+            toolMgr.loadData();
         }
     });
 
@@ -78,6 +87,7 @@ ToolManager.prototype.showEditForm = function (element) {
     var id = element.getAttribute('tool_id');
     var toolName = element.getAttribute('tool_name');
     var groupName = element.getAttribute('tool_group');
+    console.log(groupName);
     var tool_cost = element.getAttribute('tool_cost');
     // var userName = element.getAttribute('tool_username');
     $('#editToolModal').modal({show: true});
@@ -101,13 +111,13 @@ ToolManager.prototype.bindDataToGrid = function () {
     function prepareHtml(tool, index) {
         listHtml += '<tr>\n' +
             '                    <td width="20%">' + tool.name + '</td>\n' +
-            '                    <td>' + tool.tool_group_name + '</td>\n' +
-            '                    <td>' + tool.user_name + '</td>\n' +
+            '                    <td>' + tool.group.name + '</td>\n' +
+            '                    <td>' + tool.user.name + '</td>\n' +
             '                    <td>' + tool.cost_price + '</td>\n' +
             '                    <td>' + tool.purchase_date + '</td>\n' +
             '                    <td>\n' +
-            '                        <i tool_id="' + tool.id + '" tool_name="' + tool.name + '" tool_group="' + tool.tool_group_name + '" ' +
-            '                                   tool_cost="' + tool.cost_price + '" tool_username="' + tool.user_name + '"  ' +
+            '                        <i tool_id="' + tool.id + '" tool_name="' + tool.name + '" tool_group="' + tool.group.name + '" ' +
+            '                                   tool_cost="' + tool.cost_price + '" tool_username="' + tool.user.name + '"  ' +
             '                                   onclick="toolMgr.showEditForm(this)"\n' +
             '                                class="edit material-icons"\n' +
             '                                data-toggle="tooltip" title="Edit">&#xE254;</i></a>\n' +
@@ -164,9 +174,6 @@ ToolManager.prototype.getToolGroups = function () {
         tmgr.bindToolGroupsInform();
     })
 }
-
-
-
 
 let toolMgr = new ToolManager();
 
